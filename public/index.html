@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Game Event Manager</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="title">Game Event Manager</div>
+
+    <div class="auth">
+      <span id="authBadge" class="badge">Viewer mode</span>
+      <button id="requestAccessBtn" class="btn secondary">Request Edit Access</button>
+      <button id="logoutBtn" class="btn secondary hidden">Logout</button>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="wheel">Spin Wheel</button>
+      <button class="tab" data-tab="raffle">Raffle</button>
+      <button class="tab" data-tab="dashboard">Event Dashboard</button>
+      <button class="tab" data-tab="admin">Admin Reset</button>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section id="tab-wheel" class="grid cols2">
+      <div class="card">
+        <h2>Wheel</h2>
+        <canvas id="wheelCanvas" width="600" height="600"></canvas>
+        <div id="wheelStatus" class="status">Loading…</div>
+        <div class="row">
+          <button id="spinBtn" class="btn">SPIN</button>
+          <button id="refreshWheelBtn" class="btn secondary">Refresh</button>
+        </div>
+        <div id="wheelWinner" class="winner"></div>
+      </div>
+
+      <div class="card">
+        <h2>Manage Names (admin only)</h2>
+        <div class="row">
+          <input id="wheelNameInput" placeholder="Add name" />
+          <button id="addWheelNameBtn" class="btn">Add</button>
+        </div>
+        <ul id="wheelNameList" class="list"></ul>
+      </div>
+    </section>
+
+    <section id="tab-raffle" class="grid cols2 hidden">
+      <div class="card">
+        <h2>Raffle Entry (admin only)</h2>
+        <input id="raffleNameInput" placeholder="Name" />
+        <input id="raffleTicketCount" type="number" min="1" placeholder="Number of tickets (e.g. 3)" />
+        <button id="raffleAddBtn" class="btn">Add Tickets</button>
+        <div id="raffleStatus" class="status">Loading…</div>
+      </div>
+
+      <div class="card">
+        <h2>Draw Ticket</h2>
+        <button id="ticketDrawBtn" class="ticketBtn">
+          <div class="ticketInner">
+            <div id="ticketTop">CLICK TO DRAW</div>
+            <div id="ticketWinner" class="winner"></div>
+            <div id="ticketMeta" class="small"></div>
+          </div>
+        </button>
+
+        <button id="refreshRaffleBtn" class="btn secondary">Refresh</button>
+        <ul id="raffleActiveList" class="list"></ul>
+      </div>
+    </section>
+
+    <section id="tab-dashboard" class="grid cols2 hidden">
+      <div class="card">
+        <h2>Participants</h2>
+        <div class="row">
+          <input id="p_name" placeholder="Name" />
+          <input id="p_note" placeholder="Note (optional)" />
+          <button id="p_add" class="btn">Add</button>
+        </div>
+        <ul id="p_list" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Hosts</h2>
+        <div class="row">
+          <input id="h_name" placeholder="Name" />
+          <input id="h_note" placeholder="Note (optional)" />
+          <button id="h_add" class="btn">Add</button>
+        </div>
+        <ul id="h_list" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Businesses</h2>
+        <div class="row">
+          <input id="b_name" placeholder="Business" />
+          <input id="b_note" placeholder="Note (optional)" />
+          <button id="b_add" class="btn">Add</button>
+        </div>
+        <ul id="b_list" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Staff</h2>
+        <div class="row">
+          <input id="s_name" placeholder="Name" />
+          <input id="s_note" placeholder="Role / note" />
+          <button id="s_add" class="btn">Add</button>
+        </div>
+        <ul id="s_list" class="list"></ul>
+      </div>
+
+      <div class="card" style="grid-column:1/-1">
+        <h2>Status</h2>
+        <div id="dashStatus" class="status">Loading…</div>
+        <button id="dashRefresh" class="btn secondary">Refresh</button>
+      </div>
+    </section>
+
+    <section id="tab-admin" class="grid hidden">
+      <div class="card">
+        <h2>Wipe Event Data (admin only)</h2>
+        <button id="beginWipeBtn" class="btn danger">Begin Wipe</button>
+        <div id="wipeConfirmBox" class="hidden">
+          <div id="wipeInfo" class="status"></div>
+          <input id="wipePhraseInput" placeholder="Type phrase exactly" />
+          <button id="confirmWipeBtn" class="btn danger">CONFIRM WIPE</button>
+        </div>
+        <div id="adminStatus" class="status"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="modalBack" class="modalBack hidden">
+    <div class="modal">
+      <h3>Request Edit Access</h3>
+      <div class="small">Enter your name + admin PIN.</div>
+      <input id="loginName" placeholder="Your name" />
+      <input id="loginPin" type="password" placeholder="PIN" />
+      <div id="loginStatus" class="status"></div>
+      <div class="row">
+        <button id="closeModalBtn" class="btn secondary">Cancel</button>
+        <button id="loginBtn" class="btn">Get Access</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
