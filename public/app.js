@@ -46,24 +46,29 @@ $("requestAccessBtn").addEventListener("click", () => {
 $("closeModalBtn").addEventListener("click", () => $("modalBack").classList.add("hidden"));
 
 $("loginBtn").addEventListener("click", async () => {
-  const name = $("loginName").value.trim();
-  const pin  = $("loginPin").value.trim();
+  const pin = $("loginPin").value.trim();
   $("loginStatus").textContent = "Checking…";
-  try{
+
+  try {
     const res = await fetch("/api/login", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({ name, pin })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pin })
     });
+
     const data = await res.json();
-    if(!res.ok) throw new Error(data.error || "Login failed");
+    if (!res.ok) throw new Error(data.error || "Login failed");
+
     adminToken = data.token;
-    adminName = data.name;
+    adminName = data.name || "Admin";
+
     localStorage.setItem("adminToken", adminToken);
     localStorage.setItem("adminName", adminName);
+
     $("modalBack").classList.add("hidden");
+    $("loginPin").value = "";
     updateAuthUI();
-  }catch(e){
+  } catch (e) {
     $("loginStatus").textContent = "❌ " + e.message;
   }
 });
