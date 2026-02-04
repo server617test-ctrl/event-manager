@@ -39,7 +39,6 @@ function authHeaders(){
 $("requestAccessBtn").addEventListener("click", () => {
   $("modalBack").classList.remove("hidden");
   $("loginStatus").textContent = "";
-  $("loginName").value = adminName || "";
   $("loginPin").value = "";
 });
 
