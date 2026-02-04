@@ -17,10 +17,8 @@ function json(data, status = 200) {
 
 export async function onRequestPost({ request, env }) {
   const body = await request.json().catch(() => ({}));
-  const name = String(body.name || "").trim();
   const pin = String(body.pin || "").trim();
 
-  if (!name) return json({ error: "Name is required." }, 400);
   if (!pin) return json({ error: "PIN is required." }, 400);
 
   const expected = String(env.ADMIN_PIN_HASH || "").trim();
@@ -34,7 +32,7 @@ export async function onRequestPost({ request, env }) {
 
   await env.DB.prepare(
     "INSERT INTO admin_sessions(token, name, expires_at) VALUES(?,?,?)"
-  ).bind(token, name, expiresAt).run();
+  ).bind(token, "Admin", expiresAt).run();
 
-  return json({ token, name, expiresAt });
+  return json({ token, name: "Admin", expiresAt });
 }
