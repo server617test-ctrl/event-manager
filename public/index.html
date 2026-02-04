@@ -134,19 +134,22 @@
   </main>
 
   <!-- Modal -->
-  <div id="modalBack" class="modalBack hidden">
-    <div class="modal">
-      <h3>Request Edit Access</h3>
-      <div class="small">Enter your name + admin PIN.</div>
-      <input id="loginName" placeholder="Your name" />
-      <input id="loginPin" type="password" placeholder="PIN" />
-      <div id="loginStatus" class="status"></div>
-      <div class="row">
-        <button id="closeModalBtn" class="btn secondary">Cancel</button>
-        <button id="loginBtn" class="btn">Get Access</button>
-      </div>
+<div id="modalBack" class="modalBack hidden">
+  <div class="modal">
+    <h3>Request Edit Access</h3>
+    <div class="small">Enter the admin PIN.</div>
+
+    <input id="loginPin" type="password" placeholder="PIN" />
+
+    <div id="loginStatus" class="status"></div>
+
+    <div class="row">
+      <button id="closeModalBtn" class="btn secondary">Cancel</button>
+      <button id="loginBtn" class="btn">Get Access</button>
     </div>
   </div>
+</div>
+
 
   <script src="/app.js"></script>
 </body>
